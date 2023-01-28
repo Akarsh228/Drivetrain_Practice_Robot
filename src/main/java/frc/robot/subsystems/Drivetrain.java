@@ -9,20 +9,20 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
 
-  public WPI_TalonFX l1, l2, r1, r2;
+  public WPI_TalonSRX l1, l2, r1, r2;
   public MotorControllerGroup l, r;
   public DifferentialDrive ddrive;
 
   public Drivetrain ()
   {
-    l1 = new WPI_TalonFX(Constants.MOTOR_L1_ID);
-    l2 = new WPI_TalonFX(Constants.MOTOR_L2_ID);
-    r1 = new WPI_TalonFX(Constants.MOTOR_R1_ID);
-    r2 = new WPI_TalonFX(Constants.MOTOR_R2_ID);
+    l1 = new WPI_TalonSRX(Constants.MOTOR_L1_ID);
+    l2 = new WPI_TalonSRX(Constants.MOTOR_L2_ID);
+    r1 = new WPI_TalonSRX(Constants.MOTOR_R1_ID);
+    r2 = new WPI_TalonSRX(Constants.MOTOR_R2_ID);
 
     r1.setInverted(true);
     r2.setInverted(true);
