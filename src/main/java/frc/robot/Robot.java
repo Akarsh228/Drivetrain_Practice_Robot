@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -13,8 +14,10 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command[] teleCommands;
-
+  private Command auto;
+  private RobotContainer robotContainer;
   private RobotContainer m_robotContainer;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -60,8 +63,16 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    auto = m_robotContainer.getAutoCommand();
+    auto.schedule();
   }
-
+/* 
+@Override
+public void autonomousInit() {
+  auto = m_robotContainer.getAutoCommand();
+  auto.schedule();
+}
+*/
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {

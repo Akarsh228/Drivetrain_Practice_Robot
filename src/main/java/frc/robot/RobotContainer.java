@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,6 +26,7 @@ public class RobotContainer {
   private final Drivetrain drivetrain = new Drivetrain();
   private XboxController driveController;
   private final joyDrive jdrive;
+  Encoder enc;
   
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -60,12 +62,18 @@ public class RobotContainer {
   }
 
   public Command getAutoCommand() {
-    // An ExampleCommand will run in autonomous
+    enc = new Encoder(0,1);
+    enc.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr );
+
+    while (enc.getDistance() < 10.0){
+    drivetrain.move(1.0,0);
+    }
+    enc.reset();
+    
+    while (enc.getDistance() < 10.0){
+      drivetrain.move(-1.0,0);
+      }
     return null;
-    // Removed tmove from ret
-    /*
-    REMINDER: schedule the other commands here !!!!
-    */
   }
   
   // Auto Commands only once
