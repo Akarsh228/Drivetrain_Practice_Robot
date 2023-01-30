@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import java.lang.Math;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -43,3 +44,10 @@ public class Drivetrain extends SubsystemBase {
     ddrive.arcadeDrive(power,offset);
   }
 }
+/* 
+@Override
+public void autonomousInit() {
+  auto = m_robotContainer.getAutoCommand();
+  auto.schedule();
+}
+*/
