@@ -26,7 +26,6 @@ public class RobotContainer {
   private final Drivetrain drivetrain = new Drivetrain();
   private XboxController driveController;
   private final joyDrive jdrive;
-  Encoder enc;
   
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -38,6 +37,9 @@ public class RobotContainer {
     driveController = new XboxController(Constants.XBOX_DRIVE_CONTROLLER_PORT);
     jdrive = new joyDrive(drivetrain, driveController);
     configureTalons();
+    Drivetrain.EncoderL.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr );
+    Drivetrain.EncoderR.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr);
+    
   }
 
 
@@ -62,25 +64,22 @@ public class RobotContainer {
   }
 
   public Command getAutoCommand() {
-    enc = new Encoder(0,1);
-    enc.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr );
-    enc.reset();
-    while (enc.getDistance() < 10.0){
+    
+    
+    while (Drivetrain.EncoderR.getDistance() < 10.0){
     drivetrain.move(1.0,0);
     }
 
-    while (enc.getDistance() > 0){
+    while (Drivetrain.EncoderR.getDistance() > 0){
       drivetrain.move(-1.0,0);
       }
+
     return null;
   }
   
   // Auto Commands only once
   public void startAutoInit() {
 
-    // Init Commands
-    // drivetrain.encoderL.reset();
-    // drivetrain.encoderR.reset();
 
     // // In 4 feet
     // drivetrain.encoderL.setDistancePerPulse(1.0/256.0);

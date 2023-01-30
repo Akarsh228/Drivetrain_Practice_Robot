@@ -30,4 +30,10 @@ public final class Constants {
     // Encoders
     public static final double cpr = 0124; //Counts Per Revolution
     public static final double whd = 6; //WHeel Radius
+    //ID these encoders
+    public static final int L_ENCODER_CHANNEL_A =0;
+    public static final int L_ENCODER_CHANNEL_B =0;
+    public static final int R_ENCODER_CHANNEL_A =0;
+    public static final int R_ENCODER_CHANNEL_B =0;
+
 }
