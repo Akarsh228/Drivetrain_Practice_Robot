@@ -64,13 +64,12 @@ public class RobotContainer {
   public Command getAutoCommand() {
     enc = new Encoder(0,1);
     enc.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr );
-
+    enc.reset();
     while (enc.getDistance() < 10.0){
     drivetrain.move(1.0,0);
     }
-    enc.reset();
-    
-    while (enc.getDistance() < 10.0){
+
+    while (enc.getDistance() > 0){
       drivetrain.move(-1.0,0);
       }
     return null;
