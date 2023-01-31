@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-import java.lang.Math;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
 
@@ -32,6 +30,9 @@ public class Drivetrain extends SubsystemBase {
     r1.setInverted(true);
     r2.setInverted(true);
 
+    Drivetrain.EncoderL.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr );
+    Drivetrain.EncoderR.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr);
+    
     l2.follow(l1);
     r2.follow(r1); 
     EncoderR.setReverseDirection(true);
