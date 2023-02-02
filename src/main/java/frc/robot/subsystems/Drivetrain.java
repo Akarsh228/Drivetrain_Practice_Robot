@@ -5,14 +5,11 @@
 package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
-import java.math.*;
 
 
 public class Drivetrain extends SubsystemBase {
@@ -22,6 +19,8 @@ public class Drivetrain extends SubsystemBase {
   public MotorControllerGroup l, r;
   public DifferentialDrive ddrive;
   //double leftEnocoderValues, rightEncoderValues;
+  private double leftEncoderDistance;
+  private double rightEncoderDistance;
   
   // public static Encoder EncoderL;
   //public static Encoder EncoderR;
@@ -34,8 +33,8 @@ public class Drivetrain extends SubsystemBase {
     r1 = new WPI_TalonSRX(Constants.MOTOR_R1_ID);
     r2 = new WPI_TalonSRX(Constants.MOTOR_R2_ID);
 
-    double leftEncoderDistance = 0;
-    double rightEncoderDistance = 0;
+    leftEncoderDistance = 0;
+    rightEncoderDistance = 0;
 
     l1.setSelectedSensorPosition(0);
     r1.setSelectedSensorPosition(0);
@@ -74,10 +73,12 @@ public class Drivetrain extends SubsystemBase {
   public double getLeftEncoderSensorValue(){
     SmartDashboard.putNumber("ENCODER_L_SENSOR_VALUES", l1.getSelectedSensorPosition());
     SmartDashboard.updateValues();
+    
 
     
      return l1.getSelectedSensorPosition();
   }
+
 
   public double getRightEncoderSensorValue(){
     SmartDashboard.putNumber("ENCODER_R_SENSOR_VALUES", r1.getSelectedSensorPosition());
@@ -85,6 +86,16 @@ public class Drivetrain extends SubsystemBase {
 
     
      return l1.getSelectedSensorPosition();
+  }
+
+  public double getLeftEncoderDistance (){
+    SmartDashboard.putNumber("ENCODER_L_DISTANCE", leftEncoderDistance);
+    return leftEncoderDistance;
+  }
+
+  public double getRightEncoderDistance (){
+    SmartDashboard.putNumber("ENCODER_R_DISTANCE", rightEncoderDistance);
+    return rightEncoderDistance;
   }
 }
 

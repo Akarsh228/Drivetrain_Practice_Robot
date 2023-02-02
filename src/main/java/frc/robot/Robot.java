@@ -17,7 +17,7 @@ import frc.robot.subsystems.Drivetrain;
 public class Robot extends TimedRobot {
   private Command[] teleCommands;
   private Command auto;
-  private RobotContainer robotContainer;
+  //private RobotContainer robotContainer;
   private RobotContainer m_robotContainer;
   private Drivetrain drivetrain;
 
@@ -69,6 +69,14 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     auto = m_robotContainer.getAutoCommand();
     auto.schedule();
+
+    while (drivetrain.getLeftEncoderDistance() < 10){
+      drivetrain.move(1.0,0);
+    }
+
+    while (drivetrain.getLeftEncoderDistance() > 0){
+      drivetrain.move(-1.0, 0);
+    }
   }
 /* 
 @Override
@@ -111,6 +119,8 @@ public void autonomousInit() {
   public void teleopPeriodic() {
     drivetrain.getLeftEncoderSensorValue();
     drivetrain.getRightEncoderSensorValue();
+    drivetrain.getRightEncoderDistance();
+    drivetrain.getLeftEncoderDistance();
     SmartDashboard.updateValues();
   }
 
