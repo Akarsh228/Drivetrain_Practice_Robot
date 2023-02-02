@@ -21,10 +21,10 @@ public final class Constants {
     // public static final int MOTOR_L1_ID = 1;
 
     //Motors/Controller
-    public static final int MOTOR_L1_ID = 15;
-    public static final int MOTOR_L2_ID = 14;
-    public static final int MOTOR_R1_ID = 10;
-    public static final int MOTOR_R2_ID = 4;
+    public static final int MOTOR_L1_ID = 14;
+    public static final int MOTOR_L2_ID = 15;
+    public static final int MOTOR_R1_ID = 4;
+    public static final int MOTOR_R2_ID = 10;
     public static final int XBOX_DRIVE_CONTROLLER_PORT = 0;
 
     // Encoders

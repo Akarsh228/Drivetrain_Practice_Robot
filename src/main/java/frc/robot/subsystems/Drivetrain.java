@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+
+
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
 
@@ -20,6 +22,7 @@ public class Drivetrain extends SubsystemBase {
   public static Encoder EncoderL;
   public static Encoder EncoderR;
 
+
   public Drivetrain ()
   {
     l1 = new WPI_TalonSRX(Constants.MOTOR_L1_ID);
@@ -27,8 +30,8 @@ public class Drivetrain extends SubsystemBase {
     r1 = new WPI_TalonSRX(Constants.MOTOR_R1_ID);
     r2 = new WPI_TalonSRX(Constants.MOTOR_R2_ID);
   
-    r1.setInverted(true);
-    r2.setInverted(true);
+    l1.setInverted(true);
+    l2.setInverted(true);
 
     Drivetrain.EncoderL.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr );
     Drivetrain.EncoderR.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr);
