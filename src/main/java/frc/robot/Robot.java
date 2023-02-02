@@ -109,7 +109,8 @@ public void autonomousInit() {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    drivetrain.getEncoderDistance();
+    drivetrain.getLeftEncoderSensorValue();
+    drivetrain.getRightEncoderSensorValue();
     SmartDashboard.updateValues();
   }
 
