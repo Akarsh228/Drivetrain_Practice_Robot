@@ -36,8 +36,8 @@ public class RobotContainer {
     driveController = new XboxController(Constants.XBOX_DRIVE_CONTROLLER_PORT);
     jdrive = new joyDrive(drivetrain, driveController);
     configureTalons();
-    Drivetrain.EncoderL.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr );
-    Drivetrain.EncoderR.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr);
+    // Drivetrain.EncoderL.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr );
+    // Drivetrain.EncoderR.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr);
     
   }
 
@@ -65,13 +65,13 @@ public class RobotContainer {
   public Command getAutoCommand() {
     
     
-    while (Drivetrain.EncoderR.getDistance() < 10.0){
-    drivetrain.move(1.0,0);
-    }
+    // while (Drivetrain.EncoderR.getDistance() < 10.0){
+    // drivetrain.move(1.0,0);
+    // }
 
-    while (Drivetrain.EncoderR.getDistance() > 0){
-      drivetrain.move(-1.0,0);
-      }
+    // while (Drivetrain.EncoderR.getDistance() > 0){
+    //   drivetrain.move(-1.0,0);
+    //   }
 
     return null;
   }

@@ -28,7 +28,7 @@ public final class Constants {
     public static final int XBOX_DRIVE_CONTROLLER_PORT = 0;
 
     // Encoders
-    public static final double cpr = 0124; //Counts Per Revolution
+    public static final double cpr = 4096; //Counts Per Revolution
     public static final double whd = 6; //WHeel Radius
     //ID these encoders
     public static final int L_ENCODER_CHANNEL_A =0;

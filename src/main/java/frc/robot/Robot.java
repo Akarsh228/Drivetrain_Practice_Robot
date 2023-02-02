@@ -1,8 +1,10 @@
 
 package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Drivetrain;
 
 
 
@@ -17,6 +19,8 @@ public class Robot extends TimedRobot {
   private Command auto;
   private RobotContainer robotContainer;
   private RobotContainer m_robotContainer;
+  private Drivetrain drivetrain;
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -105,6 +109,8 @@ public void autonomousInit() {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    drivetrain.getEncoderDistance();
+    SmartDashboard.updateValues();
   }
 
   @Override
