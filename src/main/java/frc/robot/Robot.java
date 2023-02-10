@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.limeLight;
 
 
 
@@ -20,6 +21,7 @@ public class Robot extends TimedRobot {
   //private RobotContainer robotContainer;
   private RobotContainer m_robotContainer;
   private Drivetrain drivetrain;
+  private limeLight limeLight;
 
 
   /**
@@ -30,7 +32,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    drivetrain = new Drivetrain();
     m_robotContainer = new RobotContainer();
+    limeLight = new limeLight();
   
     
     // Shuffleboard.getTab("Tokyo Drifter - Driver View").add(outputStream);
@@ -70,13 +74,13 @@ public class Robot extends TimedRobot {
     auto = m_robotContainer.getAutoCommand();
     auto.schedule();
 
-    while (drivetrain.getLeftEncoderDistance() < 10){
-      drivetrain.move(1.0,0);
-    }
+    // while (drivetrain.getLeftEncoderDistance() < 10){
+    //   drivetrain.move(1.0,0);
+    // }
 
-    while (drivetrain.getLeftEncoderDistance() > 0){
-      drivetrain.move(-1.0, 0);
-    }
+    // while (drivetrain.getLeftEncoderDistance() > 0){
+    //   drivetrain.move(-1.0, 0);
+    // }
   }
 /* 
 @Override
@@ -118,9 +122,10 @@ public void autonomousInit() {
   @Override
   public void teleopPeriodic() {
     drivetrain.getLeftEncoderSensorValue();
-    drivetrain.getRightEncoderSensorValue();
-    drivetrain.getRightEncoderDistance();
-    drivetrain.getLeftEncoderDistance();
+    // drivetrain.getRightEncoderSensorValue();
+    // drivetrain.getRightEncoderDistance();
+    // drivetrain.getLeftEncoderDistance();
+    limeLight.limelightSmartDashboard();
     SmartDashboard.updateValues();
   }
 

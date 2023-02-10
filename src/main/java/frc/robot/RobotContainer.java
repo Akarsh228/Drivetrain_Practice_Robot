@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.joyDrive;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.limeLight;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -25,6 +26,7 @@ public class RobotContainer {
   private final Drivetrain drivetrain = new Drivetrain();
   private XboxController driveController;
   private final joyDrive jdrive;
+  private final limeLight limelight;
   
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -35,6 +37,8 @@ public class RobotContainer {
     configureButtonBindings();
     driveController = new XboxController(Constants.XBOX_DRIVE_CONTROLLER_PORT);
     jdrive = new joyDrive(drivetrain, driveController);
+    limelight = new limeLight();
+
     configureTalons();
     // Drivetrain.EncoderL.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr );
     // Drivetrain.EncoderR.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr);
@@ -63,8 +67,6 @@ public class RobotContainer {
   }
 
   public Command getAutoCommand() {
-    
-    
     // while (Drivetrain.EncoderR.getDistance() < 10.0){
     // drivetrain.move(1.0,0);
     // }
