@@ -11,6 +11,7 @@ public class limeLight extends SubsystemBase {
   public double x;
   public double y;
   public double area;
+  NetworkTable table;
 
   /** Creates a new limeLighrt. */
   public limeLight() {
@@ -26,16 +27,29 @@ public class limeLight extends SubsystemBase {
     area = ta.getDouble(0.0);  
 
   }
-  public void limelightSmartDashboard () {
-  SmartDashboard.putNumber("LimelightX", x);
-  SmartDashboard.putNumber("LimelightY", y);
-  SmartDashboard.putNumber("LimelightArea", area);
-
-  }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    NetworkTableEntry tx = table.getEntry("tx");
+    NetworkTableEntry ty = table.getEntry("ty");
+    NetworkTableEntry ta = table.getEntry("ta");
+    
+    x = tx.getDouble(0.0);
+    y = ty.getDouble(0.0);
+    area = ta.getDouble(0.0); 
+
+  }
+
+  public double getVisionTX(){
+    return x;
+  }
+
+  public double getVisionTY(){
+    return y;
+  }
+
+  public double getVisionTA(){
+    return area;
   }
 }
 
