@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.joyDrive;
+import frc.robot.commands.vision;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.limeLight;
 
@@ -26,7 +27,8 @@ public class RobotContainer {
   private final Drivetrain drivetrain = new Drivetrain();
   private XboxController driveController;
   private final joyDrive jdrive;
-  private final limeLight limelight;
+  private final vision vision;
+  private final  limeLight limeLight;
   
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -36,8 +38,9 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureButtonBindings();
     driveController = new XboxController(Constants.XBOX_DRIVE_CONTROLLER_PORT);
+    limeLight = new limeLight(driveController);
     jdrive = new joyDrive(drivetrain, driveController);
-    limelight = new limeLight();
+    vision = new vision(drivetrain, limeLight, driveController);
 
     configureTalons();
     // Drivetrain.EncoderL.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr );
@@ -61,7 +64,7 @@ public class RobotContainer {
 
 
   public Command[] getTeleCommand() {
-    Command[] ret = {jdrive};
+    Command[] ret = {jdrive, vision};
     return ret;
     /* REMINDER: schedule the other commands here !!!! */
   }
@@ -140,4 +143,4 @@ public class RobotContainer {
 
   // public void intakeUp() {
   //   intake.intakeUp();
-  // }
+  // }fd ifd 

@@ -34,7 +34,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     drivetrain = new Drivetrain();
     m_robotContainer = new RobotContainer();
-    limeLight = new limeLight();
   
     
     // Shuffleboard.getTab("Tokyo Drifter - Driver View").add(outputStream);
@@ -121,12 +120,6 @@ public void autonomousInit() {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    drivetrain.getLeftEncoderSensorValue();
-    // drivetrain.getRightEncoderSensorValue();
-    // drivetrain.getRightEncoderDistance();
-    // drivetrain.getLeftEncoderDistance();
-    limeLight.limelightSmartDashboard();
-    SmartDashboard.updateValues();
   }
 
   @Override

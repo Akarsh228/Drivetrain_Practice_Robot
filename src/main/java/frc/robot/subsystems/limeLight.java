@@ -1,25 +1,28 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class limeLight extends SubsystemBase {
   public double x;
   public double y;
   public double area;
   NetworkTable table;
+  private XboxController controller;
 
   /** Creates a new limeLighrt. */
-  public limeLight() {
+  public limeLight(XboxController controller) {
 
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
     NetworkTableEntry ta = table.getEntry("ta");
+    this.controller = controller;
 
 
     x = tx.getDouble(0.0);
@@ -50,6 +53,29 @@ public class limeLight extends SubsystemBase {
 
   public double getVisionTA(){
     return area;
+  }
+
+
+  public void followReflectiveTape(XboxController controller, Drivetrain drivetrain){
+    
+    if (controller.getAButton() == true) {
+      if(area != 0.0){
+       if (x<3){
+        while (x<0){
+          drivetrain.move(0,.25);
+          // if (x<=-2 && x>=2) {break;}
+        } 
+       }
+
+       else if (x>0){
+        while (x>0){
+          drivetrain.move(0,-.25);
+          // if (x<=-2 && x>=2) {break;}
+        } 
+       }
+      }
+    
+    }  
   }
 }
 
