@@ -5,18 +5,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.limeLight;
 
 public class vision extends CommandBase {
   private final Drivetrain drivetrain;
-  private limeLight limelight;
+  private limeLight limeLightV;
   private XboxController controller;
+  private double xVision, yVision, areaVision;
   
   public vision (Drivetrain drivetrain, limeLight limelight, XboxController controller) {
     this.drivetrain = drivetrain;
-    this.limelight = limelight;
+    this.limeLightV = limelight;
     this.controller=controller;
 
   }
@@ -28,13 +30,41 @@ public class vision extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    limelight.followReflectiveTape(controller, drivetrain);
+    xVision = limeLightV.getVisionTX();
+    yVision = limeLightV.getVisionTY();
+    areaVision = limeLightV.getVisionTA();
+
+    autoAim(xVision, yVision, areaVision, controller, drivetrain);
+    smartDashVision(xVision, yVision, areaVision);
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
+
+  public void autoAim (double x,  double y, double area, XboxController controller, Drivetrain drive) {
+    while (controller.getAButton() == true) {
+      if (area > 0) {
+        if (x<0){
+          drive.move(0,.3);
+        }
+
+        else if (x>0){
+          drive.move(0,-.3);
+        }
+      }
+      else {
+        continue;
+      }
+    }
+  }
+
+  public void smartDashVision(double x, double y, double area) {
+    SmartDashboard.putNumber("X val of limelight", x);
+    SmartDashboard.putNumber("Y val of limelight", y);
+    SmartDashboard.putNumber("Area val of limelight", area);
+  }
 
   // Returns true when the command should end.
   @Override

@@ -27,6 +27,12 @@ public class joyDrive extends CommandBase {
   @Override
   public void execute() {
     drivetrain.move(controller.getLeftY(), controller.getRightX());
+
+    // bellow to check if encoders are working and if distance is right, remove after testing
+    drivetrain.getLeftEncoderSensorValue();
+    drivetrain.getRightEncoderSensorValue();
+    drivetrain.getLeftEncoderDistance();
+    drivetrain.getRightEncoderDistance();
   }
 
   // Called once the command ends or is interrupted.

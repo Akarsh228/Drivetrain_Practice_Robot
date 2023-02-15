@@ -57,12 +57,11 @@ public class Drivetrain extends SubsystemBase {
     ddrive = new DifferentialDrive(l,r);
 
 
-    //EncoderL  = new Encoder(Constants.L_ENCODER_CHANNEL_A, Constants.L_ENCODER_CHANNEL_B);   
-    // EncoderR = new Encoder(Constants.R_ENCODER_CHANNEL_A, Constants.R_ENCODER_CHANNEL_B); 
+
    }
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+
   }
 
 
@@ -70,22 +69,19 @@ public class Drivetrain extends SubsystemBase {
     ddrive.arcadeDrive(power,offset);
   }
 
-  public double getLeftEncoderSensorValue(){
+  public void getLeftEncoderSensorValue(){
     SmartDashboard.putNumber("ENCODER_L_SENSOR_VALUES", l1.getSelectedSensorPosition());
     SmartDashboard.updateValues();
     
 
     
-     return l1.getSelectedSensorPosition();
   }
 
 
-  public double getRightEncoderSensorValue(){
+  public void getRightEncoderSensorValue(){
     SmartDashboard.putNumber("ENCODER_R_SENSOR_VALUES", r1.getSelectedSensorPosition());
     SmartDashboard.updateValues();
 
-    
-     return l1.getSelectedSensorPosition();
   }
 
   public double getLeftEncoderDistance (){
