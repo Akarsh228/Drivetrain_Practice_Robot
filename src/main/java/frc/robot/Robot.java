@@ -17,7 +17,8 @@ import frc.robot.subsystems.limeLight;
  */
 public class Robot extends TimedRobot {
   private Command[] teleCommands;
-  private Command auto;
+  private Command[] autoCommands;
+
   //private RobotContainer robotContainer;
   private RobotContainer m_robotContainer;
   private Drivetrain drivetrain;
@@ -70,16 +71,16 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    auto = m_robotContainer.getAutoCommand();
-    auto.schedule();
+    autoCommands= m_robotContainer.getAutoCommand();
 
-    // while (drivetrain.getLeftEncoderDistance() < 10){
-    //   drivetrain.move(1.0,0);
-    // }
-
-    // while (drivetrain.getLeftEncoderDistance() > 0){
-    //   drivetrain.move(-1.0, 0);
-    // }
+    if (autoCommands != null) {
+      // for(int i = 0; i < teleCommands.length; i++){
+      //   teleCommands[i].schedule();
+      // }
+      for(Command get : autoCommands){
+        get.schedule();
+      }
+    }
   }
 /* 
 @Override
@@ -103,13 +104,7 @@ public void autonomousInit() {
     
     teleCommands = m_robotContainer.getTeleCommand();
 
-    // schedule the autonomous command (example)
-
-
     if (teleCommands != null) {
-      // for(int i = 0; i < teleCommands.length; i++){
-      //   teleCommands[i].schedule();
-      // }
       for(Command get : teleCommands){
         get.schedule();
       }

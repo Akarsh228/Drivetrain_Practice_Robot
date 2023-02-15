@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.auto.autoMove;
 import frc.robot.commands.joyDrive;
 import frc.robot.commands.vision;
 import frc.robot.subsystems.Drivetrain;
@@ -29,6 +30,7 @@ public class RobotContainer {
   private final joyDrive jdrive;
   private final vision vision;
   private final  limeLight limeLight;
+  private final autoMove autoMove;
   
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -41,6 +43,7 @@ public class RobotContainer {
     limeLight = new limeLight(driveController);
     jdrive = new joyDrive(drivetrain, driveController);
     vision = new vision(drivetrain, limeLight, driveController);
+    autoMove = new autoMove(drivetrain, limeLight, driveController);
 
     configureTalons();
     // Drivetrain.EncoderL.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr );
@@ -69,16 +72,9 @@ public class RobotContainer {
     /* REMINDER: schedule the other commands here !!!! */
   }
 
-  public Command getAutoCommand() {
-    // while (Drivetrain.EncoderR.getDistance() < 10.0){
-    // drivetrain.move(1.0,0);
-    // }
-
-    // while (Drivetrain.EncoderR.getDistance() > 0){
-    //   drivetrain.move(-1.0,0);
-    //   }
-
-    return null;
+  public Command[] getAutoCommand(){
+  Command[] ret = {autoMove};
+  return ret;
   }
   
   // Auto Commands only once

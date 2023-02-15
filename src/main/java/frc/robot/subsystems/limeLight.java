@@ -18,7 +18,7 @@ public class limeLight extends SubsystemBase {
   /** Creates a new limeLighrt. */
   public limeLight(XboxController controller) {
 
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
     NetworkTableEntry ta = table.getEntry("ta");
@@ -56,14 +56,14 @@ public class limeLight extends SubsystemBase {
   }
 
 
-  public void followReflectiveTape(XboxController controller, Drivetrain drivetrain){
+  public void followReflectiveTape(Drivetrain drivetrain){
     
-    if (controller.getAButton() == true) {
       if(area != 0.0){
        if (x<3){
         while (x<0){
           drivetrain.move(0,.25);
-          // if (x<=-2 && x>=2) {break;}
+          // bellow is for autonomous just for smoothing
+          // if (x<=-2 && x>=2) {break;} 
         } 
        }
 
@@ -75,7 +75,6 @@ public class limeLight extends SubsystemBase {
        }
       }
     
-    }  
   }
 }
 
