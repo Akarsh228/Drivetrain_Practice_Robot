@@ -18,12 +18,6 @@ public class Drivetrain extends SubsystemBase {
   public WPI_TalonSRX l1, l2, r1, r2;
   public MotorControllerGroup l, r;
   public DifferentialDrive ddrive;
-  //double leftEnocoderValues, rightEncoderValues;
-  private double leftEncoderDistance;
-  private double rightEncoderDistance;
-  
-  // public static Encoder EncoderL;
-  //public static Encoder EncoderR;
 
 
   public Drivetrain ()
@@ -33,24 +27,15 @@ public class Drivetrain extends SubsystemBase {
     r1 = new WPI_TalonSRX(Constants.MOTOR_R1_ID);
     r2 = new WPI_TalonSRX(Constants.MOTOR_R2_ID);
 
-    leftEncoderDistance = 0;
-    rightEncoderDistance = 0;
-
-    l1.setSelectedSensorPosition(0);
-    r1.setSelectedSensorPosition(0);
-
-    leftEncoderDistance = (Math.PI * Constants.whd/ Constants.cpr) * l1.getSelectedSensorPosition();
-    rightEncoderDistance = (Math.PI * Constants.whd/ Constants.cpr) * r1.getSelectedSensorPosition();
+    // leftEncoderDistance = (Math.PI * Constants.whd/ Constants.cpr) * l1.getSelectedSensorPosition();
+    // rightEncoderDistance = (Math.PI * Constants.whd/ Constants.cpr) * r1.getSelectedSensorPosition();
 
     l1.setInverted(true);
     l2.setInverted(true);
 
-    //Drivetrain.EncoderL.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr );
-    //Drivetrain.EncoderR.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr);
-    
+  
     l2.follow(l1);
     r2.follow(r1); 
-    //EncoderR.setReverseDirection(true);
 
     l = new MotorControllerGroup(l1, l2);
     r = new MotorControllerGroup(r1, r2);
@@ -68,35 +53,7 @@ public class Drivetrain extends SubsystemBase {
   public void move (double power, double offset){
     ddrive.arcadeDrive(power,offset);
   }
-
-  public void getLeftEncoderSensorValue(){
-    SmartDashboard.putNumber("ENCODER_L_SENSOR_VALUES", l1.getSelectedSensorPosition());
-    SmartDashboard.updateValues();
-    
-
-    
-  }
-
-
-  public void getRightEncoderSensorValue(){
-    SmartDashboard.putNumber("ENCODER_R_SENSOR_VALUES", r1.getSelectedSensorPosition());
-    SmartDashboard.updateValues();
-
-  }
-
-  public double getLeftEncoderDistance (){
-    SmartDashboard.putNumber("ENCODER_L_DISTANCE", leftEncoderDistance);
-    return leftEncoderDistance;
-  }
-
-  public double getRightEncoderDistance (){
-    SmartDashboard.putNumber("ENCODER_R_DISTANCE", rightEncoderDistance);
-    return rightEncoderDistance;
-  }
 }
-
- 
-  //double checking if it is working
 
 
 /* 

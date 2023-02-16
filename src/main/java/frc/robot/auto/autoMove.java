@@ -9,22 +9,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.joyDrive;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.limeLight;
+import frc.robot.subsystems.Vision;
 
 public class autoMove extends CommandBase {
   /** Creates a new autoDriveTrain. */
   private final Drivetrain driveAuto;
   private XboxController controllerAuto;
-  private limeLight limeLightAuto;
+  private Vision limeLightAuto;
   private double xVisionAuto, yVisionAuto, areaVisionAuto;
   private double encoderLeftDistanceAuto, encoderRightDistanceAuto;
   
-  public autoMove (Drivetrain drivetrain, limeLight limeLight, XboxController controller) {
+  public autoMove (Drivetrain drivetrain, Vision limeLight, XboxController controller) {
       this.driveAuto = drivetrain;
       this.controllerAuto  = controller;
       this.limeLightAuto = limeLight;
-
-  
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -35,8 +33,6 @@ public class autoMove extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    encoderLeftDistanceAuto = driveAuto.getLeftEncoderDistance();
-    encoderRightDistanceAuto = driveAuto.getRightEncoderDistance();
     smartDashAuto(xVisionAuto, yVisionAuto, areaVisionAuto);
 
     drivefb(driveAuto, encoderLeftDistanceAuto);

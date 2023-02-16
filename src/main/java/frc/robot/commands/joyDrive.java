@@ -7,15 +7,18 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Vision;
 
 public class joyDrive extends CommandBase {
   /** Creates a new joyDrive. */
   private final Drivetrain drivetrain;
   private XboxController controller;
+  private final Vision vision;
   
-  public joyDrive(Drivetrain drivetrain, XboxController controller) {
+  public joyDrive(Drivetrain drivetrain, XboxController controller, Vision vision) {
     this.drivetrain = drivetrain;
     this.controller = controller;
+    this.vision = vision;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -27,12 +30,25 @@ public class joyDrive extends CommandBase {
   @Override
   public void execute() {
     drivetrain.move(controller.getLeftY(), controller.getRightX());
+    autoAim(vision.getX());
 
     // bellow to check if encoders are working and if distance is right, remove after testing
-    drivetrain.getLeftEncoderSensorValue();
-    drivetrain.getRightEncoderSensorValue();
-    drivetrain.getLeftEncoderDistance();
-    drivetrain.getRightEncoderDistance();
+  }
+
+  public void autoAim (double x) {
+    x = (int) x;
+    if (controller.getAButton()) {
+      if (vision.getV() == 1) {
+        if (x<0){
+          drivetrain.move(0,.3);
+        }
+
+        else if (x>0){
+          drivetrain.move(0,-.3);
+        }
+      }
+
+    }
   }
 
   // Called once the command ends or is interrupted.

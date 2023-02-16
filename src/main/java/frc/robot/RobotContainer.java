@@ -13,9 +13,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.auto.autoMove;
 import frc.robot.commands.joyDrive;
-import frc.robot.commands.vision;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.limeLight;
+import frc.robot.subsystems.Vision;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -28,8 +27,7 @@ public class RobotContainer {
   private final Drivetrain drivetrain = new Drivetrain();
   private XboxController driveController;
   private final joyDrive jdrive;
-  private final vision vision;
-  private final  limeLight limeLight;
+  private final  Vision vision;
   private final autoMove autoMove;
   
 
@@ -40,10 +38,9 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureButtonBindings();
     driveController = new XboxController(Constants.XBOX_DRIVE_CONTROLLER_PORT);
-    limeLight = new limeLight(driveController);
-    jdrive = new joyDrive(drivetrain, driveController);
-    vision = new vision(drivetrain, limeLight, driveController);
-    autoMove = new autoMove(drivetrain, limeLight, driveController);
+    vision = new Vision();
+    jdrive = new joyDrive(drivetrain, driveController, vision);
+    autoMove = new autoMove(drivetrain, vision, driveController);
 
     configureTalons();
     // Drivetrain.EncoderL.setDistancePerPulse(Math.PI* Constants.whd / Constants.cpr );
@@ -67,7 +64,7 @@ public class RobotContainer {
 
 
   public Command[] getTeleCommand() {
-    Command[] ret = {jdrive, vision};
+    Command[] ret = {jdrive};
     return ret;
     /* REMINDER: schedule the other commands here !!!! */
   }
