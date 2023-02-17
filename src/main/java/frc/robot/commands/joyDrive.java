@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Vision;
@@ -38,13 +39,16 @@ public class joyDrive extends CommandBase {
   public void autoAim (double x) {
     x = (int) x;
     if (controller.getAButton()) {
-      if (vision.getV() == 1) {
-        if (x<0){
-          drivetrain.move(0,.3);
+      if (vision.getV() == 1.0) {
+        SmartDashboard.putString("Working","True");
+        SmartDashboard.putNumber("X while Auto Aim", x);
+        SmartDashboard.updateValues();
+        if (x<-0.5){
+          drivetrain.move(0,-.5);
         }
 
         else if (x>0){
-          drivetrain.move(0,-.3);
+          drivetrain.move(0,.5);
         }
       }
 
