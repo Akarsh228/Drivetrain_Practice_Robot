@@ -17,8 +17,6 @@ public class autoMove extends CommandBase {
   private XboxController controllerAuto;
   private Vision limeLightAuto;
   private double xVisionAuto, yVisionAuto, areaVisionAuto;
-  private double encoderLeftDistanceAuto, encoderRightDistanceAuto;
-  
   public autoMove (Drivetrain drivetrain, Vision limeLight, XboxController controller) {
       this.driveAuto = drivetrain;
       this.controllerAuto  = controller;
@@ -33,9 +31,7 @@ public class autoMove extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    smartDashAuto(xVisionAuto, yVisionAuto, areaVisionAuto);
 
-    drivefb(driveAuto, encoderLeftDistanceAuto);
 
   }
 
@@ -45,21 +41,6 @@ public class autoMove extends CommandBase {
 
   }
 
-  public void smartDashAuto(double x, double y, double area) {
-    SmartDashboard.putNumber("X val of limelight", x);
-    SmartDashboard.putNumber("Y val of limelight", y);
-    SmartDashboard.putNumber("Area val of limelight", area);
-  }
-
-  public void drivefb(Drivetrain drive, double encoderDistance){
-    while (encoderDistance < 100){
-      drive.move(0.5, 0);
-    }
-
-    while (encoderDistance > 0){
-      drive.move(-0.5, 0);
-    }
-  }
   
 
   // Returns true when the command should end.

@@ -13,6 +13,7 @@ public class Vision extends SubsystemBase {
 
   public Vision() {
     table = NetworkTableInstance.getDefault().getTable("limelight");
+
   }
 
   @Override

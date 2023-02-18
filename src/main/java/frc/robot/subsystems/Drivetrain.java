@@ -27,9 +27,6 @@ public class Drivetrain extends SubsystemBase {
     r1 = new WPI_TalonSRX(Constants.MOTOR_R1_ID);
     r2 = new WPI_TalonSRX(Constants.MOTOR_R2_ID);
 
-    // leftEncoderDistance = (Math.PI * Constants.whd/ Constants.cpr) * l1.getSelectedSensorPosition();
-    // rightEncoderDistance = (Math.PI * Constants.whd/ Constants.cpr) * r1.getSelectedSensorPosition();
-
     l1.setInverted(true);
     l2.setInverted(true);
 
