@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.auto.autoMove;
 import frc.robot.commands.joyDrive;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Navx;
 import frc.robot.subsystems.Vision;
 
 /**
@@ -29,6 +30,7 @@ public class RobotContainer {
   private final joyDrive jdrive;
   private final  Vision vision;
   private final autoMove autoMove;
+  private final Navx Navx;
   
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -38,8 +40,9 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureButtonBindings();
     driveController = new XboxController(Constants.XBOX_DRIVE_CONTROLLER_PORT);
+    Navx = new Navx();
     vision = new Vision();
-    jdrive = new joyDrive(drivetrain, driveController, vision);
+    jdrive = new joyDrive(drivetrain, driveController, vision, Navx);
     autoMove = new autoMove(drivetrain, vision, driveController);
 
     configureTalons();

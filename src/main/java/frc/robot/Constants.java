@@ -30,7 +30,9 @@ public final class Constants {
     // Encoders
     public static final double cpr = 4096; //Counts Per Revolution
     public static final double whd = 6; //WHeel Radius needs to be measured
-
     //ID these encoders
+
+    //Gyro
+    public static final boolean invertGyro = false;
 
 }

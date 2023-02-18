@@ -9,17 +9,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Navx;
 
 public class joyDrive extends CommandBase {
   /** Creates a new joyDrive. */
   private final Drivetrain drivetrain;
   private XboxController controller;
   private final Vision vision;
+  private final Navx Navx;
   
-  public joyDrive(Drivetrain drivetrain, XboxController controller, Vision vision) {
+  public joyDrive(Drivetrain drivetrain, XboxController controller, Vision vision, Navx gyro) {
     this.drivetrain = drivetrain;
     this.controller = controller;
     this.vision = vision;
+    this.Navx = gyro;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -30,13 +33,15 @@ public class joyDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putNumber("AHRS Nav Angle Yaw", Navx.gyro.getPitch());
     drivetrain.move(controller.getLeftY(), controller.getRightX());
-    autoAim(vision.getX());
+    aimBot(vision.getX());
+    autoAlign();
 
     // bellow to check if encoders are working and if distance is right, remove after testing
   }
-
-  public void autoAim (double x) {
+//change bellow to pid loop.
+  public void aimBot (double x) {
     x = (int) x;
     if (controller.getAButton()) {
       if (vision.getV() == 1.0) {
@@ -54,6 +59,20 @@ public class joyDrive extends CommandBase {
 
     }
   }
+
+  public void autoAlign(){
+    if(controller.getXButton()){
+      if (Navx.gyro.getRotation2d().getDegrees() >= 5) {
+        drivetrain.move(.5, 0);
+      }
+
+      else if (Navx.gyro.getRotation2d().getDegrees() <= -5) {
+        drivetrain.move(-.5, 0);
+      }
+
+      }
+    }
+  
 
   // Called once the command ends or is interrupted.
   @Override
