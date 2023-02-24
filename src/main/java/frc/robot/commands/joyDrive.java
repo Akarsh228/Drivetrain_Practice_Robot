@@ -62,14 +62,21 @@ public class joyDrive extends CommandBase {
 
   public void autoAlign(){
     if(controller.getXButton()){
-      if (Navx.gyro.getRotation2d().getDegrees() >= 5) {
-        drivetrain.move(.5, 0);
+      if (Navx.gyro.getPitch() >= 7) {
+        drivetrain.move(.45, 0);
       }
 
-      else if (Navx.gyro.getRotation2d().getDegrees() <= -5) {
-        drivetrain.move(-.5, 0);
+      else if (Navx.gyro.getPitch()<= -7) {
+        drivetrain.move(-.45, 0);
       }
 
+      else if((Navx.gyro.getPitch() >= 4) && (Navx.gyro.getPitch() < 7)){
+        drivetrain.move(.35, 0);
+      }
+      else if((Navx.gyro.getPitch() <= -4) && (Navx.gyro.getPitch() > -7)){
+        drivetrain.move(-.35, 0);
+      }
+    
       }
     }
   
