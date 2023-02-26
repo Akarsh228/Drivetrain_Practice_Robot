@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -17,13 +19,14 @@ public class joyDrive extends CommandBase {
   private XboxController controller;
   private final Vision vision;
   private final Navx Navx;
-  
+  private PIDController pid;
+  private double pidOutput;
   public joyDrive(Drivetrain drivetrain, XboxController controller, Vision vision, Navx gyro) {
     this.drivetrain = drivetrain;
     this.controller = controller;
     this.vision = vision;
     this.Navx = gyro;
-    // Use addRequirements() here to declare subsystem dependencies.
+    pid = new PIDController(1, .01, .3);
   }
 
   // Called when the command is initially scheduled.
@@ -42,23 +45,21 @@ public class joyDrive extends CommandBase {
   }
 //change bellow to pid loop.
   public void aimBot (double x) {
-    x = (int) x;
+    pid.setIntegratorRange(-0.1, 0.1);
+    pidOutput = MathUtil.clamp(pid.calculate(x, 0), -.05, 0.5 );
+
     if (controller.getAButton()) {
       if (vision.getV() == 1.0) {
         SmartDashboard.putString("Working","True");
         SmartDashboard.putNumber("X while Auto Aim", x);
-        SmartDashboard.updateValues();
-        if (x<-0.5){
-          drivetrain.move(0,-.5);
-        }
+        SmartDashboard.putNumber("PID Output", pidOutput);
 
-        else if (x>0){
-          drivetrain.move(0,.5);
+        drivetrain.move(0, pidOutput);
         }
       }
 
     }
-  }
+
 
   public void autoAlign(){
     if(controller.getXButton()){
