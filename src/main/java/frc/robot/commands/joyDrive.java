@@ -26,7 +26,11 @@ public class joyDrive extends CommandBase {
     this.controller = controller;
     this.vision = vision;
     this.Navx = gyro;
-    pid = new PIDController(1, .01, .3);
+    pid = new PIDController(2, 0, 0);
+    pid.setIntegratorRange(-0.1, 0.1);
+    pid.setTolerance(.1);
+    pid.enableContinuousInput(-0.3, 0.3);
+
   }
 
   // Called when the command is initially scheduled.
@@ -45,7 +49,6 @@ public class joyDrive extends CommandBase {
   }
 //change bellow to pid loop.
   public void aimBot (double x) {
-    pid.setIntegratorRange(-0.1, 0.1);
     pidOutput = MathUtil.clamp(pid.calculate(x, 0), -.05, 0.5 );
 
     if (controller.getAButton()) {

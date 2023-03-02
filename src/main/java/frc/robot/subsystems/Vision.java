@@ -29,15 +29,15 @@ public class Vision extends SubsystemBase {
   public double getX() {
 
     x = tx.getDouble(0);
-    
-    if(tv.getBoolean(false)){
+
+    if (tv.getBoolean(false)) {
       x = 0;
-      }
-    return x ;   
+
+    }
+    return x;
   }
 
   public double getV() {
     return tv.getDouble(3);
   }
 }
-
