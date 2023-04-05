@@ -4,14 +4,21 @@
 
 package frc.robot.commands;
 
+import java.lang.annotation.Target;
+import java.util.Date;
+
+import com.revrobotics.ColorMatchResult;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Navx;
+import frc.robot.subsystems.Color_Sensor;
 
 public class joyDrive extends CommandBase {
   /** Creates a new joyDrive. */
@@ -20,34 +27,74 @@ public class joyDrive extends CommandBase {
   private final Vision vision;
   private final Navx Navx;
   private PIDController pid;
+  private Color_Sensor colorSensor;
   private double pidOutput;
-  public joyDrive(Drivetrain drivetrain, XboxController controller, Vision vision, Navx gyro) {
+  private boolean targetInFocus;
+  
+  public joyDrive(Drivetrain drivetrain, XboxController controller, Vision vision, Navx gyro, Color_Sensor color_Sensor) {
     this.drivetrain = drivetrain;
     this.controller = controller;
     this.vision = vision;
     this.Navx = gyro;
-    pid = new PIDController(2, 0, 0);
-    pid.setIntegratorRange(-0.1, 0.1);
-    pid.setTolerance(.1);
-    pid.enableContinuousInput(-0.3, 0.3);
-
+    this.colorSensor = colorSensor;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    targetInFocus = false;
+    
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber("AHRS Nav Angle Yaw", Navx.gyro.getPitch());
     drivetrain.move(controller.getLeftY(), controller.getRightX());
+
+    SmartDashboard.putBoolean("targetInFocus", targetInFocus);
+    Color detectedColor = Color_Sensor.m_colorSensor.getColor();
+    ColorMatchResult match = Color_Sensor.m_colorMatcher.matchClosestColor(detectedColor);
+    
+    if (controller.getBButton()){
+      searchForTarget(match, detectedColor, 0.3);
+    }
+
+    if(controller.getLeftBumper()){
+      BackUp();
+    }
+
     aimBot(vision.getX());
     autoAlign();
+
+    
+    SmartDashboard.putNumber("AHRS Nav Angle Yaw", Navx.gyro.getPitch());
 
     // bellow to check if encoders are working and if distance is right, remove after testing
   }
 //change bellow to pid loop.
+
+  public void searchForTarget(ColorMatchResult match, Color detectedColor, double offset){
+    while (!colorSensor.getConeDetected(match) && !colorSensor.getCubeDetected(match, detectedColor) ){
+      drivetrain.move(0,offset);
+    }
+    if (colorSensor.getConeDetected(match) || colorSensor.getCubeDetected(match, detectedColor)){
+      targetInFocus = true;
+    }
+  }
+
+  public void BackUp(){
+    if (targetInFocus){
+    long startTime = System.currentTimeMillis();
+    long elapsedTime = 0L;
+      
+      while (elapsedTime < 2*60*1000) {
+          //perform db poll/check
+          drivetrain.move(0.3,0);
+          elapsedTime = (new Date()).getTime() - startTime;
+      }
+
+    }
+  }
   public void aimBot (double x) {
     pidOutput = MathUtil.clamp(pid.calculate(x, 0), -.05, 0.5 );
 
