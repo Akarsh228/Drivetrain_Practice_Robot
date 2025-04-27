@@ -1,3 +1,3 @@
 # Drivetrain_Practice_Robot
-Hello, This is the code for the practice robot, EV Robotics (team: 2854). 
-This robot has an auto align feature, auto balances on a charge station (game piece from 2023 frc competition, charged up), and has a camera, and can sense distance of objects infront of it.
+This is a code for an frc practice tank drive robot (VERY outdated, built in 2023)
+Can AutoAlign, AutoBalance, Camera for Feed, ColorSensor, and Detect the distance of objects in front. 
